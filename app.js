@@ -910,7 +910,7 @@
         $("lede").innerHTML = "<strong>" + nC.toLocaleString() + " wireline transceiver papers</strong> (" + ALL.filter(function (p) { return p.lv === "core" && p.ty === "ADC/DAC-based"; }).length + " ADC/DAC-based, " +
           ALL.filter(function (p) { return p.lv === "core" && p.ty === "DSP (no ADC)"; }).length + " DSP without an ADC front end) from " + venues +
           " IEEE circuits venues, " + esc(fmtDate(META.coverage_from)) + " to " + esc(fmtDate(META.coverage_to)) +
-          ". Updated automatically on the 15th of every month; last update " + esc(META.updated || "") + (META.last_run_new ? ", with " + META.last_run_new + " papers added in the latest update." : ".");
+          ". Updated automatically on the 15th of every month; last update " + esc(META.updated || "") + (META.last_run_new ? ", with " + META.last_run_new + (META.last_run_new === 1 ? " paper" : " papers") + " added in the latest update." : ".");
       } else {
         $("lede").textContent = "A monthly index of wireline transceiver papers in ISSCC, VLSI, JSSC, CICC, ESSCIRC, A-SSCC, SSC-L, TCAS-I/II and TVLSI.";
       }
