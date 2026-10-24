@@ -1,0 +1,47 @@
+{
+ "_comment": "since_year: first publication year shown. cache: the adc-census record cache on this server (overridable with $WIRELINE_CENSUS_CACHE or --cache). venues: regex on the IEEE publication_title that assigns the venue; IEEE Access is left out because adc-census only fetches its converter papers.",
+ "since_year": 1997,
+ "cache": "~/adc-census/cache/raw",
+ "venues": [
+  {
+   "name": "SSC-L",
+   "match": "solid[- ]state circuits letters"
+  },
+  {
+   "name": "JSSC",
+   "match": "journal of solid[- ]state circuits"
+  },
+  {
+   "name": "TCAS-II",
+   "match": "circuits and systems\\s*(ii|2)\\b|express briefs"
+  },
+  {
+   "name": "TCAS-I",
+   "match": "circuits and systems\\s*(i|1)\\b|regular papers"
+  },
+  {
+   "name": "TVLSI",
+   "match": "very large scale integration"
+  },
+  {
+   "name": "A-SSCC",
+   "match": "asian solid[- ]state circuits|\\ba-sscc\\b"
+  },
+  {
+   "name": "ESSCIRC",
+   "match": "european solid[- ]state (circuits|device and circuits|electronics research)|\\besscirc\\b|\\besserc\\b"
+  },
+  {
+   "name": "ISSCC",
+   "match": "international solid[- ]state circuits conference|\\bisscc\\b"
+  },
+  {
+   "name": "VLSI",
+   "match": "symposium on vlsi"
+  },
+  {
+   "name": "CICC",
+   "match": "custom integrated circuits conference|\\bcicc\\b"
+  }
+ ]
+}

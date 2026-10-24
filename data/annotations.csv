@@ -1,0 +1,4 @@
+id,exclude,type,arch,app,mod,rate,eff,loss,ber,fsadc,resadc,p,node,area,cal,note,by
+# One row per paper. id = IEEE article number. Leave a cell empty to keep the automatic value; - removes a wrong value.
+# exclude=1 drops a false positive. type = DSP/ADC-based or Analog. arch/app/mod take several values separated by ";" (e.g. ADC-based RX;MLSD, PAM4).
+# Units: rate in b/s (112G); eff in pJ/b; loss in dB; ber as log10 (-12); fsadc in S/s; resadc in bit; p in W; node in nm; area in mm2.
