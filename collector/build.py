@@ -201,7 +201,7 @@ def rebuild(config, cache, run_date):
         "core": sum(1 for p in papers if p["lv"] == "core"),
         "by_venue": by_venue,
         "by_type": by_type,
-        "last_run_new": sum(1 for p in papers if p["first"] == run_date) if old else 0,   # the first build adds nothing "new"
+        "last_run_new": sum(1 for p in papers if p["first"] == run_date and p["id"] not in old) if old else 0,   # the first build adds nothing "new"
     }
     save_json(META, meta)
     log("wrote %d papers (%d core, %d new)" % (len(papers), meta["core"], meta["last_run_new"]))
