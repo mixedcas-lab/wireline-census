@@ -1,27 +1,27 @@
 {
  "title": "Wireline Census",
  "source": "IEEE Xplore API (records collected by adc-census)",
- "updated": "2026-10-24",
+ "updated": "2026-10-25",
  "coverage_from": "1997-01",
  "coverage_to": "2026-10",
- "total": 1759,
- "core": 1744,
+ "total": 2593,
+ "core": 2573,
  "by_venue": {
   "JSSC": 647,
   "TCAS-I": 193,
   "TCAS-II": 194,
   "TVLSI": 107,
-  "VLSI": 49,
-  "CICC": 32,
-  "ISSCC": 415,
+  "VLSI": 276,
+  "CICC": 235,
+  "ISSCC": 568,
   "SSC-L": 46,
-  "A-SSCC": 34,
-  "ESSCIRC": 27
+  "A-SSCC": 172,
+  "ESSCIRC": 135
  },
  "by_type": {
-  "Analog/mixed-signal": 1600,
-  "DSP (no ADC)": 63,
-  "ADC/DAC-based": 81
+  "Analog/mixed-signal": 2347,
+  "DSP (no ADC)": 91,
+  "ADC/DAC-based": 135
  },
  "last_run_new": 0
 }
