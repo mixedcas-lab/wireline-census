@@ -22,14 +22,14 @@ WIRE = re.compile(r"wireline|feed[- ]?forward equaliz|decision[- ]feedback equal
 # radio links share words like "receiver" and "Gb/s"
 WIRELESS = re.compile(r"wireless|\bRF\b|radio|mm-?wave|millimeter|\b[56]G\b|antenna|\bLNA\b|phased[- ]array|beamform|"
                       r"[0-9]\s*GHz (?:band|carrier)|D-band|W-band|E-band|sub-THz|terahertz|THz|\bQAM\b.*wireless|radar|\bBLE\b|Wi-?Fi|UWB|"
-                      r"body[- ]channel|\bNFC\b|optical wireless|backscatter|uplink|downlink|baseband|massive|cellular|\bB5G|\b6G", I)
+                      r"body[- ]channel|\bNFC\b|optical wireless|backscatter|uplink|downlink|baseband|massive|cellular|\bB5G|\b6G|space[- ]time|spatially multiplexed|MIMO systems", I)
 NON_PAPER = re.compile(
     r"^(front cover|back cover|table of contents|contents|author index|index|"
     r"call for papers|editorial|guest editorial|reviewers|session \d+ overview|"
     r"(?:tutorials?|short course|evening (?:event|session)|forum|panel)(?=\s*:|\s*$)|"
     r"(ieee )?(transactions|journal) .*information|blank page|copyright)\b", I)
 DSP_RX = re.compile(r"ADC[- ]based|DAC[- ]based|DSP[- ]based|\bDSP\b|\bMLSD\b|maximum[- ]likelihood|Viterbi|digital equaliz|"
-                    r"digital(?:ly)? (?:CDR|FFE|DFE)|ADC/DAC|DAC/ADC|discrete multitone|\bDMT\b|\bOFDM\b|MIMO", I)
+                    r"digital (?:FFE|DFE|FIR)|ADC/DAC|DAC/ADC|discrete multitone|\bDMT\b|\bOFDM\b|MIMO", I)
 
 
 def relevance(title, abstract):
@@ -48,10 +48,19 @@ def relevance(title, abstract):
 
 
 # ------------------------------------------------------------- type / architecture / application
+ADC_DAC_RX = re.compile(r"(?:time[- ]based|SAR|time[- ]interleaved|pipelined?|flash|[0-9]+[- ]?b(?:it)?)[- ]ADCs?\b|ADC[- ]based|DAC[- ]based|ADC/DAC|DAC/ADC|ADC[- ]DSP|DSP[- ]DAC|DAC[- ]DSP|\bADC[- ]front[- ]end", I)
+
+
 def link_type(title, abstract):
-    """DSP/ADC-based when the title (or the first sentences of the abstract) says so."""
+    """ADC/DAC-based: the signal is digitized before detection (ADC-based RX) or synthesized by a DAC (DAC-based TX),
+    usually with DSP behind it. DSP (no ADC): digital equalization/detection named in the title without an ADC/DAC
+    front end. Otherwise analog/mixed-signal. Judged from the title and the first two sentences of the abstract."""
     first = " ".join(re.split(r"(?<=[.!?])\s+", abstract or "")[:2])
-    return "DSP/ADC-based" if DSP_RX.search(title or "") or DSP_RX.search(first) else "Analog/mixed-signal"
+    if ADC_DAC_RX.search(title or "") or ADC_DAC_RX.search(first):
+        return "ADC/DAC-based"
+    if DSP_RX.search(title or "") or DSP_RX.search(first):
+        return "DSP (no ADC)"
+    return "Analog/mixed-signal"
 
 
 ARCH_RULES = [

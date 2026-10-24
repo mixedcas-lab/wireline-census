@@ -33,7 +33,9 @@ class TestSpecs(unittest.TestCase):
         t = "A 1.41-pJ/b 224-Gb/s PAM4 6-bit ADC-Based SerDes Receiver With Hybrid AFE Capable of Supporting Long Reach Channels"
         s = C.parse_specs(t, "")
         self.assertEqual((s["rate"], s["eff"], s["resadc"]), (224e9, 1.41, 6))
-        self.assertEqual((C.link_type(t, ""), C.modulations(t, "")), ("DSP/ADC-based", ["PAM4"]))
+        self.assertEqual((C.link_type(t, ""), C.modulations(t, "")), ("ADC/DAC-based", ["PAM4"]))
+        self.assertEqual(C.link_type("A 112Gb/s DSP-Based PAM-4 Receiver", ""), "DSP (no ADC)")
+        self.assertEqual(C.link_type("A 112Gb/s DSP-Based PAM-4 Receiver", "The receiver uses a 7-b 56-GS/s ADC-based front end."), "ADC/DAC-based")
         self.assertIn("ADC-based RX", C.architectures(t, ""))
 
     def test_abstract_and_derived(self):
@@ -74,7 +76,7 @@ class TestBuild(unittest.TestCase):
         papers = {p["id"]: p for p in build.load_json(build.PAPERS, [])}
         self.assertEqual(set(papers), {"1", "3"})
         p = papers["1"]
-        self.assertEqual((p["ty"], p["mod"], p["x"]["eff_calc"]), ("DSP/ADC-based", ["PAM4"], 5.0))
+        self.assertEqual((p["ty"], p["mod"], p["x"]["eff_calc"]), ("ADC/DAC-based", ["PAM4"], 5.0))
         self.assertEqual(papers["3"]["ty"], "Analog/mixed-signal")
         self.assertNotIn("abstract", json.dumps(list(papers.values())))
         self.assertEqual(meta["core"], 2)

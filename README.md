@@ -6,7 +6,7 @@
 
 # Wireline Census
 
-ISSCC, VLSI, JSSC, CICC, ESSCIRC/ESSERC, A-SSCC, SSC-L, TCAS-I/II, TVLSI에 실린 유선(wireline) 송수신기 논문을 모아 보여주는 사이트입니다. 특히 **DSP/ADC 기반 송수신기**(ADC-based RX, DAC-based TX, MLSD, DMT 등)를 따로 걸러 볼 수 있습니다. 키워드는 김가인 교수님의 제안(PAM4, DFE, MLSD, 112 GS/s, ADC-based)을 반영했습니다. MCAS Lab(서울시립대학교 첨단융합학부)에서 운영합니다.
+ISSCC, VLSI, JSSC, CICC, ESSCIRC/ESSERC, A-SSCC, SSC-L, TCAS-I/II, TVLSI에 실린 유선(wireline) 송수신기 논문을 모아 보여주는 사이트입니다. 특히 **ADC/DAC 기반**과 **DSP 기반** 송수신기를 따로 걸러 볼 수 있습니다. 키워드는 김가인 교수님의 제안(PAM4, DFE, MLSD, 112 GS/s, ADC-based)을 반영했습니다. MCAS Lab(서울시립대학교 첨단융합학부)에서 운영합니다.
 
 - 사이트: https://mixedcas-lab.github.io/wireline-census/
 - 데이터 출처: IEEE Xplore API (서지 메타데이터와 링크만 공개, 초록·본문은 올리지 않음)
@@ -15,7 +15,7 @@ ISSCC, VLSI, JSSC, CICC, ESSCIRC/ESSERC, A-SSCC, SSC-L, TCAS-I/II, TVLSI에 실�
 
 1. **데이터**: adc-census 수집기가 받아 둔 랩 서버 캐시(`~/adc-census/cache/raw`)를 읽기만 합니다. IEEE API를 따로 쓰지 않습니다.
 2. **분류**: 제목에 송수신기·수신기·송신기·SerDes·CDR·등화기(DFE/FFE/CTLE/MLSD)·TIA 등과 유선 맥락(Gb/s, PAM, NRZ, SerDes, backplane, die-to-die, HBM/GDDR, 광 링크 등)이 함께 있으면 core입니다. 무선(RF, mm-wave, 6G, 안테나, 베이스밴드)은 제외합니다.
-3. **유형**: 제목이나 초록 앞부분에 ADC-based, DAC-based, DSP, MLSD, DMT/OFDM, MIMO 등이 있으면 DSP/ADC-based, 아니면 Analog/mixed-signal입니다.
+3. **유형** (제목과 초록 앞 두 문장 기준): **ADC/DAC-based**(검출 전에 ADC로 디지털화하는 수신기 또는 DAC로 파형을 만드는 송신기, 보통 뒤에 DSP), **DSP (no ADC)**(디지털 등화·MLSD·DMT 등을 쓰지만 ADC/DAC 앞단을 내세우지 않는 경우), **Analog/mixed-signal**(그 외).
 4. **태그**: 구조(ADC-based RX, DAC-based TX, MLSD, DFE, FFE, CTLE, CDR, DMT, 크로스토크/에코 제거, clock-forwarded, FEC), 변조(NRZ, PAM3/4/6/8, duobinary, DMT/OFDM), 응용(장거리/백플레인, 광/데이터센터, die-to-die, 메모리, PCIe/Ethernet/USB, 디스플레이/차량).
 5. **수치**: 데이터 속도, 에너지 효율(pJ/b), 채널 손실(dB), BER, ADC/DAC 샘플링 속도·분해능, 전력, 공정, 면적. 제목 값을 우선하고, 초록에 같은 항목의 값이 여럿이면 비워 둡니다. pJ/b가 없으면 전력/속도로 계산합니다(≈ 표시).
 6. **공개**: cron이 매일 06:37에 재생성하고, 바뀐 것이 있으면 커밋·push합니다.

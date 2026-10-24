@@ -4,12 +4,12 @@
  "updated": "2026-10-24",
  "coverage_from": "1997-01",
  "coverage_to": "2026-10",
- "total": 1763,
- "core": 1748,
+ "total": 1759,
+ "core": 1744,
  "by_venue": {
-  "JSSC": 648,
-  "TCAS-I": 195,
-  "TCAS-II": 195,
+  "JSSC": 647,
+  "TCAS-I": 193,
+  "TCAS-II": 194,
   "TVLSI": 107,
   "VLSI": 49,
   "CICC": 32,
@@ -19,8 +19,9 @@
   "ESSCIRC": 27
  },
  "by_type": {
-  "Analog/mixed-signal": 1584,
-  "DSP/ADC-based": 164
+  "Analog/mixed-signal": 1600,
+  "DSP (no ADC)": 63,
+  "ADC/DAC-based": 81
  },
  "last_run_new": 0
 }

@@ -224,7 +224,7 @@ def report(config, cache, sample=15):
             return "%d%%" % round(100.0 * sum(1 for p in core if k in p["s"]) / len(core))
         print("\nspec coverage over %d core papers: rate %s, pJ/b %s, loss %s, BER %s, ADC fs %s, ADC bits %s, power %s, node %s, area %s" % (
             len(core), pct("rate"), pct("eff"), pct("loss"), pct("ber"), pct("fsadc"), pct("resadc"), pct("p"), pct("node"), pct("area")))
-        print("DSP/ADC-based: %d" % sum(1 for p in core if p["ty"] == "DSP/ADC-based"))
+        print("types: %s" % {t: sum(1 for p in core if p["ty"] == t) for t in ("ADC/DAC-based", "DSP (no ADC)", "Analog/mixed-signal")})
         print("\nrandom core papers:")
         for p in random.Random(0).sample(core, min(sample, len(core))):
             print("  - [%s %s] %s  {%s | %s}" % (p["v"], p["y"], p["t"][:110], p["ty"] or "-", ", ".join(p["ar"]) or "no arch"))

@@ -12,7 +12,7 @@
   // the colour of a dot follows the most specific architecture tag
   var PRIMARY = ["ADC-based RX", "DAC-based TX", "MLSD", "Multicarrier/DMT", "Crosstalk/echo cancel", "FEC",
     "Clock-forwarded", "DFE", "FFE", "CTLE", "CDR"];
-  var TYPE_COLORS = { "DSP/ADC-based": "#d0365a", "Analog/mixed-signal": "#1f55c4" };
+  var TYPE_COLORS = { "ADC/DAC-based": "#d0365a", "DSP (no ADC)": "#d69a00", "Analog/mixed-signal": "#1f55c4" };
   var MODS = ["NRZ", "PAM3", "PAM4", "PAM6", "PAM8", "Duobinary", "DMT/OFDM"];
   var VENUE_ORDER = ["ISSCC", "VLSI", "JSSC", "CICC", "ESSCIRC", "A-SSCC", "SSC-L", "TCAS-I", "TCAS-II", "TVLSI"];
   var KNOWN_APPS = ["Long-reach/backplane", "Optical/data center", "Die-to-die/chiplet", "Memory interface", "PCIe/Ethernet/USB", "Display/automotive"];
@@ -131,7 +131,7 @@
       var a = ann[p.id];
       if (a) {
         if (/^(1|y|yes|true|x)$/i.test(a.exclude || "")) return;
-        if (a.type) p.ty = /dsp|adc/i.test(a.type) ? "DSP/ADC-based" : /analog|mixed/i.test(a.type) ? "Analog/mixed-signal" : p.ty;
+        if (a.type) p.ty = /adc|dac/i.test(a.type) ? "ADC/DAC-based" : /dsp/i.test(a.type) ? "DSP (no ADC)" : /analog|mixed/i.test(a.type) ? "Analog/mixed-signal" : p.ty;
         if (a.mod) p.mod = canonTags(a.mod, MODS);
         if (a.arch) p.ar = canonTags(a.arch, Object.keys(ARCH_COLORS));
         if (a.app) p.ap = canonTags(a.app, KNOWN_APPS);
@@ -907,7 +907,8 @@
       var nC = ALL.filter(function (p) { return p.lv === "core"; }).length;
       var venues = Object.keys(META.by_venue || {}).length;
       if (ALL.length) {
-        $("lede").innerHTML = "<strong>" + nC.toLocaleString() + " wireline transceiver papers</strong> (" + ALL.filter(function (p) { return p.lv === "core" && p.ty === "DSP/ADC-based"; }).length + " DSP/ADC-based) from " + venues +
+        $("lede").innerHTML = "<strong>" + nC.toLocaleString() + " wireline transceiver papers</strong> (" + ALL.filter(function (p) { return p.lv === "core" && p.ty === "ADC/DAC-based"; }).length + " ADC/DAC-based, " +
+          ALL.filter(function (p) { return p.lv === "core" && p.ty === "DSP (no ADC)"; }).length + " DSP without an ADC front end) from " + venues +
           " IEEE circuits venues, " + esc(fmtDate(META.coverage_from)) + " to " + esc(fmtDate(META.coverage_to)) +
           ". Updated automatically on the 15th of every month; last update " + esc(META.updated || "") + (META.last_run_new ? ", with " + META.last_run_new + " papers added in the latest update." : ".");
       } else {
